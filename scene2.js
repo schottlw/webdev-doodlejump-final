@@ -19,6 +19,10 @@ class Scene2 extends Phaser.Scene{
         this.platforms.add(platform);
         }
 
+    //player
+    this.player = this.physics.add.sprite(240,300,"player").setScale(0.3);
+
+
     }
 
     update(){
