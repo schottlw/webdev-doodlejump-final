@@ -8,12 +8,21 @@ class Scene2 extends Phaser.Scene{
     this.background = this.add.tileSprite(0,0, config.width, config.height, "background");
     this.background.setOrigin(0,0);
 
-    //platforms
+    //platform group
+    this.platforms = this.physics.add.group();
 
-    this.add.image(240, 320, "platform").setScale(0.2);
+    for (var i = 0; i <= 5; i++){
+        var x = Phaser.Math.Between(100,400)
+        var y = 100*i
+        var platform = this.physics.add.sprite
+        (x, y, "platform").setScale(0.2);
+        this.platforms.add(platform);
+        }
+
     }
 
     update(){
 
     }
+
 }
