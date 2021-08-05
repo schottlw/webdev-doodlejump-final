@@ -16,11 +16,12 @@ class Scene3 extends Phaser.Scene {
         this.platforms = this.physics.add.staticGroup();
 
         // platform at start so player doesn't automatically fall
+        // TODO: Kill when off-screen
         this.startPlatform = this.physics.add.sprite(250, 450, "platform").setScale(0.2);
         this.startPlatform.setImmovable(true);
 
         for (var i = 0; i <= 5; i++) {
-            var x = Phaser.Math.Between(50, 450)
+            var x = Phaser.Math.Between(80, 420)
             var y = 100 * i
 
             var platform = this.platforms.create(x, y, 'platform');
