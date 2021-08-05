@@ -1,70 +1,47 @@
-class Scene2 extends Phaser.Scene{
+class Scene2 extends Phaser.Scene {
     constructor() {
-        super("playGame");
+        super("weatherLoad");
+        this.weather;
+        this.city;
     }
 
-    create() {
-        //background
-        this.background = this.add.tileSprite(0,0, config.width, config.height, "background");
-        this.background.setOrigin(0,0);
+  async create() {
 
-        //platform group
-        var platforms = this.physics.add.staticGroup();
+    console.log("test");
 
-        // platform at start so player doesn't automatically fall
-        var startPlatform = platforms.create(250,450,"platform").setScale(0.2);
-        var startBody = startPlatform.body;
-        startBody.updateFromGameObject();
+    var that = this; 
+    var currentWeather = new CityWeather();
+    await currentWeather.getCityWeather(function () {
+        that.weather = currentWeather.weather;
+        that.city = currentWeather.city;
 
-        for (var i = 0; i <= 5; i++){
-            var x = Phaser.Math.Between(100,400)
-            var y = 100*i
+    });
 
-            var platform = platforms.create(x,y,'platform');
-            platform.scale = 0.2;
+    console.log("weather: " + this.weather);
+    console.log("City: " + this.city);
 
-            var body = platform.body;
-            body.updateFromGameObject();
-        }
+    
 
-        //player
-        this.player = this.physics.add.sprite(250,350,"player").setScale(0.3);
 
-        this.player.setGravityY(200);
-
-        this.player.body.checkCollision.up = false;
-        this.player.body.checkCollision.left = false;
-        this.player.body.checkCollision.right = false;
-
-        //this.cameras.main.startFollow(this.player);
-
-        // player, platform collision
-        this.physics.add.collider(platforms, this.player);
-
-        //listener for keyboard input
-        this.cursorKeys = this.input.keyboard.createCursorKeys();
-
-        //this.player.setCollideWorldBounds(true);
+    if (this.weather.match(/Cloud.*/))
+    {
+        this.background = this.add.tileSprite(0, 0, config.width, config.height, "rain");
+        this.background.setOrigin(0, 0);
 
     }
+    else{
 
-    update(){
-
-        this.movePlayer();
-        
-        let touchingDown = this.player.body.touching.down;
-        if(touchingDown) {
-            this.player.setVelocityY(-280);
-        }
-
+        this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
+        this.background.setOrigin(0, 0);
     }
-    movePlayer(){
-        if(this.cursorKeys.left.isDown){
-            this.player.setVelocityX(-100);
-        }
-        else if(this.cursorKeys.right.isDown){
-            this.player.setVelocityX(100);
-        }
-    }
+   
+
+    //display user's current city and weather 
+    this.cityText = this.add.text(5, 5, 'city:'+this.city, { fontSize: '15px', fill: '#800813' });
+    this.weatherText = this.add.text(5, 20, 'Weather:'+this.weather, { fontSize: '15px', fill: '#800813' });
+
 
 }
+}
+
+ 
