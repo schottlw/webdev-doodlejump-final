@@ -13,18 +13,17 @@ class Scene3 extends Phaser.Scene {
         // this.background.setOrigin(0, 0);
 
         //platform group
-        var platforms = this.physics.add.staticGroup();
+        this.platforms = this.physics.add.staticGroup();
 
         // platform at start so player doesn't automatically fall
-        var startPlatform = platforms.create(250, 450, "platform").setScale(0.2);
-        var startBody = startPlatform.body;
-        startBody.updateFromGameObject();
+        this.startPlatform = this.physics.add.sprite(250, 450, "platform").setScale(0.2);
+        this.startPlatform.setImmovable(true);
 
         for (var i = 0; i <= 5; i++) {
-            var x = Phaser.Math.Between(100, 400)
+            var x = Phaser.Math.Between(50, 450)
             var y = 100 * i
 
-            var platform = platforms.create(x, y, 'platform');
+            var platform = this.platforms.create(x, y, 'platform');
             platform.scale = 0.2;
 
             var body = platform.body;
@@ -40,21 +39,31 @@ class Scene3 extends Phaser.Scene {
         this.player.body.checkCollision.left = false;
         this.player.body.checkCollision.right = false;
 
-        //this.cameras.main.startFollow(this.player);
+        this.cameras.main.startFollow(this.player);
 
         // player, platform collision
-        this.physics.add.collider(platforms, this.player);
+        this.physics.add.collider(this.platforms, this.player);
+
+        this.physics.add.collider(this.startPlatform, this.player);
+
 
         //listener for keyboard input
         this.cursorKeys = this.input.keyboard.createCursorKeys();
 
         //this.player.setCollideWorldBounds(true);
 
-
-
     }
 
    update() {
+    // moves platforms at bottom to top for infinite platforms
+        this.platforms.children.iterate(child => {
+            var platform = child;
+            var scrollY = this.cameras.main.scrollY;
+            if (platform.y >= scrollY + 500){
+                platform.y = scrollY - Phaser.Math.Between(50,100);
+                platform.body.updateFromGameObject();
+            }
+        })
 
         this.movePlayer();
 
@@ -64,6 +73,7 @@ class Scene3 extends Phaser.Scene {
         }
 
     }
+
     movePlayer() {
         if (this.cursorKeys.left.isDown) {
             this.player.setVelocityX(-100);
