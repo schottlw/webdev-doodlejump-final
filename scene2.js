@@ -54,7 +54,7 @@ class Scene2 extends Phaser.Scene{
         
         let touchingDown = this.player.body.touching.down;
         if(touchingDown) {
-            this.player.setVelocityY(-250);
+            this.player.setVelocityY(-280);
         }
 
     }
