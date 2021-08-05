@@ -23,7 +23,7 @@ class Scene2 extends Phaser.Scene {
     
 
 
-    if (this.weather.match(/Cloud.*/))
+    if (this.weather.match(/Rain.*/))
     {
         this.background = this.add.tileSprite(0, 0, config.width, config.height, "rain");
         this.background.setOrigin(0, 0);
