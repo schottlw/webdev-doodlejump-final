@@ -9,21 +9,22 @@ class Scene2 extends Phaser.Scene{
         this.background.setOrigin(0,0);
 
         //platform group
-        // TODO: Prevent platforms from moving when player hits
-        this.platforms = this.physics.add.group();
-        this.platforms.setVelocityY(0);
+        var platforms = this.physics.add.staticGroup();
+
+        // platform at start so player doesn't automatically fall
+        var startPlatform = platforms.create(250,450,"platform").setScale(0.2);
+        var startBody = startPlatform.body;
+        startBody.updateFromGameObject();
 
         for (var i = 0; i <= 5; i++){
             var x = Phaser.Math.Between(100,400)
             var y = 100*i
 
-            // platform at start so player doesn't automatically fall
-            var startPlatform = this.physics.add.sprite(250,450,"platform").setScale(0.2);
-            this.platforms.add(startPlatform);
+            var platform = platforms.create(x,y,'platform');
+            platform.scale = 0.2;
 
-            var platform = this.physics.add.sprite
-            (x, y, "platform").setScale(0.2);
-            this.platforms.add(platform);
+            var body = platform.body;
+            body.updateFromGameObject();
         }
 
         //player
@@ -35,9 +36,10 @@ class Scene2 extends Phaser.Scene{
         this.player.body.checkCollision.left = false;
         this.player.body.checkCollision.right = false;
 
+        //this.cameras.main.startFollow(this.player);
 
         // player, platform collision
-        this.physics.add.collider(this.platforms, this.player);
+        this.physics.add.collider(platforms, this.player);
 
         //listener for keyboard input
         this.cursorKeys = this.input.keyboard.createCursorKeys();
@@ -47,6 +49,7 @@ class Scene2 extends Phaser.Scene{
     }
 
     update(){
+
         this.movePlayer();
         
         let touchingDown = this.player.body.touching.down;
