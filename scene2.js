@@ -3,30 +3,52 @@ class Scene2 extends Phaser.Scene{
         super("playGame");
     }
 
-    create(){
-    //background
-    this.background = this.add.tileSprite(0,0, config.width, config.height, "background");
-    this.background.setOrigin(0,0);
+    create() {
+        //background
+        this.background = this.add.tileSprite(0,0, config.width, config.height, "background");
+        this.background.setOrigin(0,0);
 
-    //platform group
-    this.platforms = this.physics.add.group();
+        //platform group
+        // TODO: Prevent platforms from moving when player hits
+        this.platforms = this.physics.add.group();
+        this.platforms.setVelocityY(0);
 
-    for (var i = 0; i <= 5; i++){
-        var x = Phaser.Math.Between(100,400)
-        var y = 100*i
-        var platform = this.physics.add.sprite
-        (x, y, "platform").setScale(0.2);
-        this.platforms.add(platform);
+        for (var i = 0; i <= 5; i++){
+            var x = Phaser.Math.Between(100,400)
+            var y = 100*i
+
+            // platform at start so player doesn't automatically fall
+            var startPlatform = this.physics.add.sprite(250,450,"platform").setScale(0.2);
+            this.platforms.add(startPlatform);
+
+            var platform = this.physics.add.sprite
+            (x, y, "platform").setScale(0.2);
+            this.platforms.add(platform);
         }
 
-    //player
-    this.player = this.physics.add.sprite(240,300,"player").setScale(0.3);
+        //player
+        this.player = this.physics.add.sprite(250,350,"player").setScale(0.3);
+        //this.player.setVelocityY(-300);
+        this.player.setGravityY(200);
 
+        // player, platform collision
+        this.physics.add.collider(this.platforms, this.player);
+
+        //listener for keyboard input
+        //this.cursorKeys = this.input.keyboard.createCursorKeys();
 
     }
 
     update(){
+        //this.movePlayer();
+        let touchingDown = this.player.body.touching.down;
+        if(touchingDown) {
+            this.player.setVelocityY(-300);
+        }
 
+    }
+    movePlayer(){
+    
     }
 
 }
