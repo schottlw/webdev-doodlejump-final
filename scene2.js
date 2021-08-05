@@ -28,27 +28,40 @@ class Scene2 extends Phaser.Scene{
 
         //player
         this.player = this.physics.add.sprite(250,350,"player").setScale(0.3);
-        //this.player.setVelocityY(-300);
+
         this.player.setGravityY(200);
+
+        this.player.body.checkCollision.up = false;
+        this.player.body.checkCollision.left = false;
+        this.player.body.checkCollision.right = false;
+
 
         // player, platform collision
         this.physics.add.collider(this.platforms, this.player);
 
         //listener for keyboard input
-        //this.cursorKeys = this.input.keyboard.createCursorKeys();
+        this.cursorKeys = this.input.keyboard.createCursorKeys();
+
+        //this.player.setCollideWorldBounds(true);
 
     }
 
     update(){
-        //this.movePlayer();
+        this.movePlayer();
+        
         let touchingDown = this.player.body.touching.down;
         if(touchingDown) {
-            this.player.setVelocityY(-300);
+            this.player.setVelocityY(-250);
         }
 
     }
     movePlayer(){
-    
+        if(this.cursorKeys.left.isDown){
+            this.player.setVelocityX(-100);
+        }
+        else if(this.cursorKeys.right.isDown){
+            this.player.setVelocityX(100);
+        }
     }
 
 }
