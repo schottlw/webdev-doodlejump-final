@@ -11,10 +11,6 @@ class Scene1 extends Phaser.Scene {
     //this.load.image("player", "assets/images/player.png");
     this.load.image("rain", "assets/images/rain.png");
 
-
-
-
-
   }
 
   create() {

@@ -4,17 +4,16 @@ class Scene3 extends Phaser.Scene {
     }
 
   create() {   
-
         //background
-        // this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
-        // this.background.setOrigin(0, 0);
+        this.add.image(240, 320, 'background')
+        .setScrollFactor(0,0);
 
         //platform group
         this.platforms = this.physics.add.staticGroup();
 
         // platform at start so player doesn't automatically fall
         // TODO: Kill when off-screen
-        this.startPlatform = this.physics.add.sprite(250, 450, "platform").setScale(0.2);
+        this.startPlatform = this.physics.add.sprite(250, 550, "platform").setScale(0.2);
         this.startPlatform.setImmovable(true);
 
         for (var i = 0; i <= 5; i++) {
@@ -30,9 +29,8 @@ class Scene3 extends Phaser.Scene {
 
         //player
         this.player = this.physics.add.sprite(250, 350, "player").setScale(1.2);
-        //this.player = this.physics.add.sprite(100, 450, 'player');
 
-        this.player.setGravityY(200);
+        this.player.setGravityY(300);
         this.player.setBounce(0.2);
 
         this.player.body.checkCollision.up = false;
@@ -66,41 +64,47 @@ class Scene3 extends Phaser.Scene {
             }
         })
 
-    //     this.movePlayer();
+        this.movePlayer();
 
-    let touchingDown = this.player.body.touching.down;
-    if (touchingDown) {
-    this.player.setVelocityY(-280);
-         }
+    // infinite bounce
+        let touchingDown = this.player.body.touching.down;
+        if (touchingDown) {
+        this.player.setVelocityY(-300);
+        }
 
-    if (this.cursorKeys.left.isDown) {
-        this.player.setVelocityX(-160);
-       
-        this.player.anims.play('left', true);
-      }
-
-      else if (this.cursorKeys.right.isDown) {
-        this.player.setVelocityX(160);
-  
-        this.player.anims.play('right', true);
-      }
-
-      else {
-        this.player.setVelocityX(0);
-  
-        this.player.anims.play('turn');
-      }
-  
-      if (this.cursorKeys.up.isDown && this.player.body.touching.down) {  
-        this.player.setVelocityY(-330);
-      }
-  
-      if (this.cursorKeys.space.isDown) {
-        shootBeam(this);
-       var position=this.player.x;
-  
-      }
     }
+
+    movePlayer(){
+        if (this.cursorKeys.left.isDown) {
+            this.player.setVelocityX(-200);
+           
+            this.player.anims.play('left', true);
+          }
+    
+          else if (this.cursorKeys.right.isDown) {
+            this.player.setVelocityX(200);
+      
+            this.player.anims.play('right', true);
+          }
+    
+          else {
+            this.player.setVelocityX(0);
+      
+            this.player.anims.play('turn');
+          }
+      
+          if (this.cursorKeys.up.isDown && this.player.body.touching.down) {  
+            this.player.setVelocityY(-330);
+          }
+      
+          if (this.cursorKeys.space.isDown) {
+            shootBeam(this);
+           var position=this.player.x;
+      
+          }
+    }
+
+
     
 
 }
