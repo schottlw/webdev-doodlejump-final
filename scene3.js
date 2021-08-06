@@ -1,8 +1,6 @@
 class Scene3 extends Phaser.Scene {
     constructor() {
         super("playGame");
-        this.weather;
-        this.city;
         
     }
 
@@ -32,9 +30,11 @@ class Scene3 extends Phaser.Scene {
         }
 
         //player
-        this.player = this.physics.add.sprite(250, 350, "player").setScale(0.3);
+        this.player = this.physics.add.sprite(250, 350, "player").setScale(1.2);
+        //this.player = this.physics.add.sprite(100, 450, 'player');
 
         this.player.setGravityY(200);
+        this.player.setBounce(0.2);
 
         this.player.body.checkCollision.up = false;
         this.player.body.checkCollision.left = false;
@@ -56,21 +56,49 @@ class Scene3 extends Phaser.Scene {
 
    update() {
 
-        this.movePlayer();
+    //     this.movePlayer();
 
-        let touchingDown = this.player.body.touching.down;
-        if (touchingDown) {
-            this.player.setVelocityY(-280);
-        }
+    //     let touchingDown = this.player.body.touching.down;
+    //     if (touchingDown) {
+    //         this.player.setVelocityY(-280);
+    //     }
 
-    }
-    movePlayer() {
-        if (this.cursorKeys.left.isDown) {
-            this.player.setVelocityX(-100);
-        }
-        else if (this.cursorKeys.right.isDown) {
-            this.player.setVelocityX(100);
-        }
+    // }
+    // movePlayer() {
+    //     if (this.cursorKeys.left.isDown) {
+    //         this.player.setVelocityX(-100);
+    //     }
+    //     else if (this.cursorKeys.right.isDown) {
+    //         this.player.setVelocityX(100);
+    //     }
+
+    if (this.cursorKeys.left.isDown) {
+        this.player.setVelocityX(-160);
+       
+  
+        this.player.anims.play('left', true);
+      }
+      else if (this.cursorKeys.right.isDown) {
+        this.player.setVelocityX(160);
+  
+        this.player.anims.play('right', true);
+      }
+      else {
+        this.player.setVelocityX(0);
+  
+        this.player.anims.play('turn');
+      }
+  
+      if (this.cursorKeys.up.isDown && this.player.body.touching.down) {
+        this.player.setVelocityY(-330);
+      }
+  
+      if (this.cursorKeys.space.isDown) {
+        shootBeam(this);
+       var position=this.player.x;
+  
+       
+      }
     }
 
 
