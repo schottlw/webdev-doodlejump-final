@@ -69,6 +69,8 @@ class Scene3 extends Phaser.Scene {
 
         this.movePlayer();
 
+        this.horizontalWrap(this.player)
+
     // infinite bounce
         let touchingDown = this.player.body.touching.down;
         if (touchingDown) {
@@ -106,7 +108,17 @@ class Scene3 extends Phaser.Scene {
           } */
     }
 
+    // player wraps around screen 
+    horizontalWrap(player){
+        var halfWidth = player.displayWidth * 0.5;
+        var gameWidth = this.scale.width;
+        if (player.x < -halfWidth){
+            player.x = gameWidth + halfWidth
+        }
+        else if(player.x > gameWidth + halfWidth){
+            player.x = -halfWidth
+        }
+    }
 
-    
 
 }
