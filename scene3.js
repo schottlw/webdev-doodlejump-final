@@ -16,8 +16,9 @@ class Scene3 extends Phaser.Scene {
         this.startPlatform = this.physics.add.sprite(250, 550, "platform").setScale(0.2);
         this.startPlatform.setImmovable(true);
 
+
         for (var i = 0; i <= 5; i++) {
-            var x = Phaser.Math.Between(50, 450)
+            var x = Phaser.Math.Between(80, 420)
             var y = 100 * i
 
             var platform = this.platforms.create(x, y, 'platform');
@@ -40,6 +41,8 @@ class Scene3 extends Phaser.Scene {
         //camera
         this.cameras.main.startFollow(this.player);
 
+        this.cameras.main.setDeadzone(this.scale.width * 1.5);
+
         // player, platform collision
         this.physics.add.collider(this.platforms, this.player);
 
@@ -59,7 +62,7 @@ class Scene3 extends Phaser.Scene {
             var platform = child;
             var scrollY = this.cameras.main.scrollY;
             if (platform.y >= scrollY + 500){
-                platform.y = scrollY - Phaser.Math.Between(50,100);
+                platform.y = scrollY - Phaser.Math.Between(50,80);
                 platform.body.updateFromGameObject();
             }
         })
@@ -97,11 +100,10 @@ class Scene3 extends Phaser.Scene {
             this.player.setVelocityY(-330);
           }
       
-          if (this.cursorKeys.space.isDown) {
+          /* if (this.cursorKeys.space.isDown) {
             shootBeam(this);
            var position=this.player.x;
-      
-          }
+          } */
     }
 
 

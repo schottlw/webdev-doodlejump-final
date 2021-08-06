@@ -8,7 +8,6 @@ class Scene1 extends Phaser.Scene {
     this.load.image("background", "assets/images/background.jpg");
     this.load.image("platform", "assets/images/platform.png");
     this.load.spritesheet('player', 'assets/images/player.png', { frameWidth: 32, frameHeight: 48 });
-    //this.load.image("player", "assets/images/player.png");
     this.load.image("rain", "assets/images/rain.png");
 
   }
