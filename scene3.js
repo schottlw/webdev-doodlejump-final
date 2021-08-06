@@ -21,7 +21,7 @@ class Scene3 extends Phaser.Scene {
         this.startPlatform.setImmovable(true);
 
         for (var i = 0; i <= 5; i++) {
-            var x = Phaser.Math.Between(80, 420)
+            var x = Phaser.Math.Between(50, 450)
             var y = 100 * i
 
             var platform = this.platforms.create(x, y, 'platform');
@@ -70,17 +70,20 @@ class Scene3 extends Phaser.Scene {
 
         let touchingDown = this.player.body.touching.down;
         if (touchingDown) {
-            this.player.setVelocityY(-280);
+            this.player.setVelocityY(-300);
         }
 
     }
 
     movePlayer() {
         if (this.cursorKeys.left.isDown) {
-            this.player.setVelocityX(-100);
+            this.player.setVelocityX(-200);
         }
         else if (this.cursorKeys.right.isDown) {
-            this.player.setVelocityX(100);
+            this.player.setVelocityX(200);
+        }
+        else {
+            this.player.setVelocityX(0);
         }
     }
 
