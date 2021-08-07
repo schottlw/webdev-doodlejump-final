@@ -48,11 +48,9 @@ class Scene3 extends Phaser.Scene {
 
         this.physics.add.collider(this.startPlatform, this.player);
 
-
         //listener for keyboard input
         this.cursorKeys = this.input.keyboard.createCursorKeys();
 
-        //this.player.setCollideWorldBounds(true);
 
     }
 
