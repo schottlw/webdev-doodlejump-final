@@ -11,8 +11,11 @@ class Scene3 extends Phaser.Scene {
         //platform group
         this.platforms = this.physics.add.staticGroup();
 
+        //star group
+        // TODO: Make stars collectable 
+        this.stars = this.physics.add.staticGroup();
+
         // platform at start so player doesn't automatically fall
-        // TODO: Kill when off-screen
         this.startPlatform = this.physics.add.sprite(250, 550, "platform").setScale(0.2);
         this.startPlatform.setImmovable(true);
 
@@ -48,10 +51,19 @@ class Scene3 extends Phaser.Scene {
 
         this.physics.add.collider(this.startPlatform, this.player);
 
+        // platform, star collision
+        this.physics.add.collider(this.platforms, this.stars);
+
         //listener for keyboard input
         this.cursorKeys = this.input.keyboard.createCursorKeys();
 
+        // score
+        this.score = 0;
 
+        var style = { color: '#ffffff', fontSize: 20};
+        this.scoreText = this.add.text(240, 10, 'Stars: 0', style)
+        .setOrigin(-1.5,0)
+        .setScrollFactor(0)
     }
 
    update() {
@@ -62,6 +74,8 @@ class Scene3 extends Phaser.Scene {
             if (platform.y >= scrollY + 500){
                 platform.y = scrollY - Phaser.Math.Between(50,80);
                 platform.body.updateFromGameObject();
+
+                this.AddStars(platform);
             }
         })
 
@@ -82,6 +96,7 @@ class Scene3 extends Phaser.Scene {
             //console.log('game over');
             this.scene.start("gameOver");
         }
+
 
     }
 
@@ -136,6 +151,13 @@ class Scene3 extends Phaser.Scene {
         }
 
         return bottomPlatform;
+    }
+
+    AddStars(sprite){
+        var y = sprite.y - sprite.displayHeight
+        var star = this.stars.create(sprite.x, y, 'star').setScale(0.3);
+        star.body.setSize(star.width, star.height)
+        return star;
     }
 
 

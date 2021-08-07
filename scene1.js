@@ -7,7 +7,8 @@ class Scene1 extends Phaser.Scene {
   preload() {
     this.load.image("background", "assets/images/background.jpg");
     this.load.image("platform", "assets/images/platform.png");
-    this.load.spritesheet('player', 'assets/images/player.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.image("star", "assets/images/star.png");
+    this.load.spritesheet('player', 'assets/spriteSheets/player.png', { frameWidth: 32, frameHeight: 48 });
     this.load.image("rain", "assets/images/rain.png");
 
   }
