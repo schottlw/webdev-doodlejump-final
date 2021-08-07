@@ -69,12 +69,20 @@ class Scene3 extends Phaser.Scene {
 
         this.movePlayer();
 
-        this.horizontalWrap(this.player)
+        this.horizontalWrap(this.player);
+
 
     // infinite bounce
         let touchingDown = this.player.body.touching.down;
         if (touchingDown) {
         this.player.setVelocityY(-300);
+        }
+
+    // game over
+        var bottomPlatform = this.findBottom()
+        if (this.player.y > bottomPlatform.y + 200){
+            //console.log('game over');
+            this.scene.start("gameOver");
         }
 
     }
@@ -118,6 +126,22 @@ class Scene3 extends Phaser.Scene {
         else if(player.x > gameWidth + halfWidth){
             player.x = -halfWidth
         }
+    }
+
+    findBottom(){
+        var platforms = this.platforms.getChildren()
+        let bottomPlatform = platforms[0];
+
+        for (let i = 1; i < platforms.length; i++){
+            var platform = platforms[i];
+            if (platform.y < bottomPlatform.y){
+                continue
+            }
+
+            bottomPlatform = platform;
+        }
+
+        return bottomPlatform;
     }
 
 
