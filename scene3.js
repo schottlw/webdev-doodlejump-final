@@ -109,11 +109,7 @@ class Scene3 extends Phaser.Scene {
           if (this.cursorKeys.up.isDown && this.player.body.touching.down) {  
             this.player.setVelocityY(-330);
           }
-      
-          /* if (this.cursorKeys.space.isDown) {
-            shootBeam(this);
-           var position=this.player.x;
-          } */
+
     }
 
     // player wraps around screen 
