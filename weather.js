@@ -58,15 +58,18 @@ class CityWeather {
 
   //fetch weather
   fetchWeather() {
-    return fetch(`https://weatherbit-v1-mashape.p.rapidapi.com/current?lon=${this.lng}&lat=${this.lat}`,
-      {
-        "method": "GET",
-        "headers": {
-          "x-rapidapi-key": "2ed0ded61fmsh29fb2491e3cf7aap129be6jsnb0a344720d9a",
-          "x-rapidapi-host": "weatherbit-v1-mashape.p.rapidapi.com"
-        }
-      })
+
+    return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=4a3ff5b3af9fb104095dd2ae1f948987`)
       .then((r) => r.json());
+    // return fetch(`https://weatherbit-v1-mashape.p.rapidapi.com/current?lon=${this.lng}&lat=${this.lat}`,
+    //   {
+    //     "method": "GET",
+    //     "headers": {
+    //       "x-rapidapi-key": "2ed0ded61fmsh29fb2491e3cf7aap129be6jsnb0a344720d9a",
+    //       "x-rapidapi-host": "weatherbit-v1-mashape.p.rapidapi.com"
+    //     }
+    //   })
+    //   .then((r) => r.json());
   }
 
 
@@ -75,12 +78,14 @@ class CityWeather {
     this.geolocation();
     //Get JSON responses with City and Weather 
     this.cityData = await this.fetchCity();
-    this.weatherData = await this.fetchWeather();
-
     this.city = this.cityData.city;
-    this.weather = this.weatherData.data[0].weather.description;
 
-    let cityWeather = [this.city, this.weather];
+    this.weatherData = await this.fetchWeather();
+    console.log(this.weatherData);
+    this.city = this.cityData.city;
+    this.weather = this.weatherData.weather[0].description;
+
+
 
     next();
   }

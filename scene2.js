@@ -7,7 +7,7 @@ class Scene2 extends Phaser.Scene {
 
   async create() {
 
-    console.log("test");
+
 
     var that = this; 
     var currentWeather = new CityWeather();
@@ -23,8 +23,21 @@ class Scene2 extends Phaser.Scene {
     
 
 
-    if (this.weather.match(/Rain.*/))
-    {
+    if (this.weather.match(/cloud.*/))
+     {
+        this.background = this.add.tileSprite(0, 0, config.width, config.height, "cloud");
+        this.background.setOrigin(0, 0);
+
+    }
+    
+    else if ((this.weather.match(/clear.*/ )) || (this.weather.match(/sun.*/ )))
+     {
+        this.background = this.add.tileSprite(0, 0, config.width, config.height, "clear");
+        this.background.setOrigin(0, 0);
+
+    }
+    else if (this.weather.match(/rain.*/ ))
+     {
         this.background = this.add.tileSprite(0, 0, config.width, config.height, "rain");
         this.background.setOrigin(0, 0);
 
