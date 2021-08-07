@@ -35,8 +35,8 @@ class Scene3 extends Phaser.Scene {
         //player
         this.player = this.physics.add.sprite(250, 350, "player").setScale(1.2);
 
-        this.player.setGravityY(300);
-        this.player.setBounce(0.2);
+        this.player.setGravityY(280);
+        //this.player.setBounce(0.5);
 
         this.player.body.checkCollision.up = false;
         this.player.body.checkCollision.left = false;
@@ -72,7 +72,7 @@ class Scene3 extends Phaser.Scene {
         this.platforms.children.iterate(child => {
             var platform = child;
             var scrollY = this.cameras.main.scrollY;
-            if (platform.y >= scrollY + 500){
+            if (platform.y >= scrollY + 600){
                 platform.y = scrollY - Phaser.Math.Between(50,80);
                 platform.body.updateFromGameObject();
 
@@ -88,7 +88,7 @@ class Scene3 extends Phaser.Scene {
     // infinite bounce
         let touchingDown = this.player.body.touching.down;
         if (touchingDown) {
-        this.player.setVelocityY(-300);
+        this.player.setVelocityY(-330);
         }
 
     // game over
