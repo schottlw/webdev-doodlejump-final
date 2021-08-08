@@ -60,10 +60,10 @@ class Scene3 extends Phaser.Scene {
         this.cursorKeys = this.input.keyboard.createCursorKeys();
 
         // score
-        this.score = 0;
+        this.starsCollected = 0;
 
         var style = { color: '#ffffff', fontSize: 20};
-        this.scoreText = this.add.text(240, 10, 'Stars: 0', style)
+        this.starsCollectedText = this.add.text(240, 10, 'Stars: 0', style)
         .setOrigin(-1.5,0)
         .setScrollFactor(0)
 
@@ -88,7 +88,7 @@ class Scene3 extends Phaser.Scene {
         this.stars.children.iterate(child => {
             var star = child;
             var scrollY = this.cameras.main.scrollY;
-            if (star.y >= scrollY + 500){
+            if (star.y >= scrollY + 600){
                 this.stars.killAndHide(star);
             }
         })
@@ -177,6 +177,10 @@ class Scene3 extends Phaser.Scene {
     starCollect(player,star){
         this.stars.killAndHide(star);
         this.physics.world.disableBody(star.body);
+        this.starsCollected++;
+
+        var value = `Stars: ${this.starsCollected}`
+        this.starsCollectedText.text = value;
     }
 
 
