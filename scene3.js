@@ -66,6 +66,10 @@ class Scene3 extends Phaser.Scene {
         this.scoreText = this.add.text(240, 10, 'Stars: 0', style)
         .setOrigin(-1.5,0)
         .setScrollFactor(0)
+
+        // star, player overlap
+        this.physics.add.overlap(this.player, this.stars,this.starCollect, undefined, this);
+
     }
 
    update() {
@@ -78,6 +82,14 @@ class Scene3 extends Phaser.Scene {
                 platform.body.updateFromGameObject();
 
                 this.AddStars(platform);
+            }
+        })
+        // kills stars if not grabbed
+        this.stars.children.iterate(child => {
+            var star = child;
+            var scrollY = this.cameras.main.scrollY;
+            if (star.y >= scrollY + 500){
+                this.stars.killAndHide(star);
             }
         })
 
@@ -160,6 +172,11 @@ class Scene3 extends Phaser.Scene {
         var star = this.stars.create(sprite.x, y, 'star').setScale(0.3);
         star.body.setSize(star.width, star.height)
         return star;
+    }
+
+    starCollect(player,star){
+        this.stars.killAndHide(star);
+        this.physics.world.disableBody(star.body);
     }
 
 
