@@ -64,7 +64,7 @@ class Scene3 extends Phaser.Scene {
 
         var style = { color: '#ffffff', fontSize: 20};
         this.starsCollectedText = this.add.text(240, 10, 'Stars: 0', style)
-        .setOrigin(-1.5,0)
+        .setOrigin(-1.3,0)
         .setScrollFactor(0)
 
         // star, player overlap
