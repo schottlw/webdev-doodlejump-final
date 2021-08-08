@@ -78,7 +78,7 @@ class Scene3 extends Phaser.Scene {
             var platform = child;
             var scrollY = this.cameras.main.scrollY;
             if (platform.y >= scrollY + 600){
-                platform.y = scrollY - Phaser.Math.Between(50,80);
+                platform.y = scrollY - Phaser.Math.Between(50,70);
                 platform.body.updateFromGameObject();
 
                 this.AddStars(platform);
@@ -105,12 +105,12 @@ class Scene3 extends Phaser.Scene {
         }
 
     // game over
+        var score = this.starsCollected;
         var bottomPlatform = this.findBottom()
         if (this.player.y > bottomPlatform.y + 200){
             //console.log('game over');
-            this.scene.start("gameOver");
+            this.scene.start("gameOver", {score});
         }
-
 
     }
 

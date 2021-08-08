@@ -3,14 +3,25 @@ class Scene4 extends Phaser.Scene{
         super("gameOver");
     }
 
+    // takes starsCollected data from scene 3
+    init(data){
+        this.score = data.score;
+    }
+
     create(){
-        this.add.text(this.scale.width * 0.5, this.scale.height * 0.5, 'Game Over \n Score: ', {
+        this.add.text(this.scale.width * 0.5, this.scale.height * 0.5, 'Game Over', {
             fonstSize: 24
 
         })
         .setOrigin(0.5); // sets text to middle of screen
 
-        this.add.text(this.scale.width *0.5, this.scale.height * 0.55, 'Press SPACE to restart', {
+        this.add.text(this.scale.width * 0.5, this.scale.height * 0.53, 'Stars: ' + this.score, {
+            fonstSize: 24
+
+        })
+        .setOrigin(0.5);
+
+        this.add.text(this.scale.width *0.5, this.scale.height * 0.56, 'Press SPACE to restart', {
             fontSize: 18
         })
         .setOrigin(0.5);
