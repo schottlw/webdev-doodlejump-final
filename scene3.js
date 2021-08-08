@@ -121,8 +121,8 @@ class Scene3 extends Phaser.Scene {
             this.player.anims.play('turn');
           }
       
-          if (this.cursorKeys.up.isDown && this.player.body.touching.down) {  
-            this.player.setVelocityY(-330);
+          if (this.cursorKeys.down.isDown) {  
+            this.player.setVelocityY(300);
           }
 
     }
