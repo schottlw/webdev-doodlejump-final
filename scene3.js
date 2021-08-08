@@ -7,8 +7,8 @@ class Scene3 extends Phaser.Scene {
         //background
         //TODO: find another background that fits new game dimensions
         //TODO: get weather api background
-        this.add.image(240, 320, 'background')
-        .setScrollFactor(0,0);
+       // this.add.image(240, 320, 'background')
+        //.setScrollFactor(0,0);
 
         //platform group
         this.platforms = this.physics.add.staticGroup();
@@ -177,6 +177,9 @@ class Scene3 extends Phaser.Scene {
     starCollect(player,star){
         this.stars.killAndHide(star);
         this.physics.world.disableBody(star.body);
+        this.score+=10;
+        console.log(this.score);
+        this.scoreText.setText('Stars:'+this.score);
     }
 
 
