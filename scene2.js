@@ -54,7 +54,7 @@ class Scene2 extends Phaser.Scene {
     this.weatherText = this.add.text(5, 20, 'Weather:'+this.weather, { fontSize: '15px', fill: '#800813' });
 
 
-}
+    }
 }
 
  

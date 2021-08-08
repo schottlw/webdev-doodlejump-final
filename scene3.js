@@ -14,7 +14,6 @@ class Scene3 extends Phaser.Scene {
         this.platforms = this.physics.add.staticGroup();
 
         //star group
-        // TODO: Make stars collectable 
         this.stars = this.physics.add.staticGroup();
 
         // platform at start so player doesn't automatically fall
@@ -43,7 +42,7 @@ class Scene3 extends Phaser.Scene {
         this.player.body.checkCollision.left = false;
         this.player.body.checkCollision.right = false;
 
-        //camera
+        //cameras
         this.cameras.main.startFollow(this.player);
 
         this.cameras.main.setDeadzone(this.scale.width * 1.5);
@@ -84,7 +83,8 @@ class Scene3 extends Phaser.Scene {
                 this.AddStars(platform);
             }
         })
-        // kills stars if not grabbed
+
+    // kills stars if not grabbed
         this.stars.children.iterate(child => {
             var star = child;
             var scrollY = this.cameras.main.scrollY;
@@ -108,7 +108,6 @@ class Scene3 extends Phaser.Scene {
         var score = this.starsCollected;
         var bottomPlatform = this.findBottom()
         if (this.player.y > bottomPlatform.y + 200){
-            //console.log('game over');
             this.scene.start("gameOver", {score});
         }
 
@@ -126,15 +125,15 @@ class Scene3 extends Phaser.Scene {
       
             this.player.anims.play('right', true);
           }
+
+          else if (this.cursorKeys.down.isDown) {  
+            this.player.setVelocityY(300);
+          }
     
           else {
             this.player.setVelocityX(0);
       
             this.player.anims.play('turn');
-          }
-      
-          if (this.cursorKeys.down.isDown) {  
-            this.player.setVelocityY(300);
           }
 
     }
