@@ -60,7 +60,7 @@ class Scene3 extends Phaser.Scene {
         // score
         this.starsCollected = 0;
 
-        var style = { color: '#ffffff', fontSize: 20};
+        var style = { color: '#000000', fontSize: 20};
         this.starsCollectedText = this.add.text(240, 10, 'Stars: 0', style)
         .setOrigin(-1.3,0)
         .setScrollFactor(0)
