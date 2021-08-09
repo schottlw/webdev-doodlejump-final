@@ -34,6 +34,8 @@ class Scene3 extends Phaser.Scene {
         //player
         this.player = this.physics.add.sprite(250, 350, "player").setScale(1.2);
 
+        this.player.setData("username", this.username);
+
         this.player.setGravityY(280);
         //this.player.setBounce(0.5);
 
@@ -67,6 +69,7 @@ class Scene3 extends Phaser.Scene {
 
         // star, player overlap
         this.physics.add.overlap(this.player, this.stars,this.starCollect, undefined, this);
+        
 
     }
 
@@ -107,7 +110,7 @@ class Scene3 extends Phaser.Scene {
         var score = this.starsCollected;
         var bottomPlatform = this.findBottom()
         if (this.player.y > bottomPlatform.y + 200){
-            this.scene.start("gameOver", {score});
+            this.scene.start("gameOver", {score, username})
         }
 
     }

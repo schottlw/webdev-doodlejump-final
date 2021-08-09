@@ -5,6 +5,8 @@ class Scene1 extends Phaser.Scene {
   }
 
   preload() {
+    console.log("form html");
+    this.load.html("form", "form.html");
     this.load.image("background", "assets/images/background.jpg");
     this.load.image("platform", "assets/images/platform.png");
     this.load.image("star", "assets/images/star.png");
@@ -16,6 +18,7 @@ class Scene1 extends Phaser.Scene {
   }
 
   create() {
+    this.html.start("form");
     this.scene.start("weatherLoad");
     this.scene.start("playGame");
 

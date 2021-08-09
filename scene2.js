@@ -7,7 +7,14 @@ class Scene2 extends Phaser.Scene {
 
   async create() {
 
-
+    this.usernameInput = this.add.dom(640, 360).createFromCache("form");
+    this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    this.returnKey.on("down", event => {
+        let username = this.usernameInput.getChildByName("username");
+        if(username.value != "") {
+            this.scene.start("playgame");
+        }
+    })
 
     var that = this; 
     var currentWeather = new CityWeather();
