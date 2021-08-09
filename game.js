@@ -2,7 +2,7 @@ let config = {
     width: 500,
     height: 600,
     backgroundColor: 0x000000,
-    scene: [Scene1, Scene2, Scene3, Scene4],
+    scene: [Scene1, Scene2, Scene3, Scene4, Scene5],
     physics: {
         default: "arcade",
         arcade: {
@@ -12,5 +12,5 @@ let config = {
 }
 
 // Creates new instance of Phaser Game
-    let game = new Phaser.Game(config);
+let game = new Phaser.Game(config);
 
