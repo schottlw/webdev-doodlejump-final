@@ -3,67 +3,44 @@ class Scene5 extends Phaser.Scene{
         super("highscores");
     }
 
-
-    // takes starsCollected data from scene 3
-    init(data){
-        this.score = data.score;
-    }
-
     create () {
-        let score = this.score;
-        postHighscores = async (pilotName = "player", score) => {
-            try {
-            const request = await fetch('https://web-dev-final-it3049c.s3.amazonaws.com/scores.json', {
-                method: 'POST',
-                headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user: pilotName, score }),
-            });
-            const response = await request.json();
-            return response;
-            } catch (err) {
-            throw new Error('Unable to post Highscores! Please try again later!');
-            }
-        }
-        
-        fetchHighscores = async () => {
-            const leaderboard = [];
-            try {
-            const request = await fetch('https://web-dev-final-it3049c.s3.amazonaws.com/scores.json', {
-                method: 'GET',
-                headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                },
-            });
-            const response = await request.json();
-            const data = response.result;
-            data.forEach(entry => {
-                leaderboard.push([entry.user, entry.score]);
-            });
-            return leaderboard;
-            } catch (error) {
-            throw new Error('Unable to fetch Highscores! Please try again later!');
-            }
-        };
-        fetchHighscores().then(response => {
-            response.sort((a, b) => b[1] - a[1])
-                .slice(0, 6)
-                .map((game, i) => {
-                const text = `${i + 1}. Pilot: ${game[0]} --- Score: ${game[1]}`;
-                this.add.text(config.width / 2, (85 * (i + 1.1)) + 100, text, {
-                    fontFamily: 'Visitor TT2 BRK',
-                    fontSize: '48px',
-                    color: '#00ff33',
-                    align: 'center',
-                    lineHeight: '1.5',
-                }).setOrigin(0.5, 0.5);
-                return text;
-                });
-            });
+        this.add.text(this.scale.width * 0.5, this.scale.height * 0.1, 'Highscores:', {
+            fonstSize: 72,
+            color: '#FF0000'
+        })
+        .setOrigin(0.5); // sets text to middle of screen
+
+        this.add.text(this.scale.width * 0.23, this.scale.height * 0.2, 'Rank:', {
+            fonstSize: 24,
+            color: '#FF0000'
+        })
+        .setOrigin(0.5);
+
+        this.add.text(this.scale.width *0.5, this.scale.height * 0.2, 'Name:', {
+            fontSize: 18,
+            color: '#FF0000'
+        })
+        .setOrigin(0.5);
+
+        this.add.text(this.scale.width *0.77, this.scale.height * 0.2, 'Stars:', {
+            fontSize: 18,
+            color: '#FF0000'
+        })
+        .setOrigin(0.5);
+
+        this.add.text(this.scale.width *0.5, this.scale.height * 0.90, 'Press SPACE to restart', {
+            fontSize: 18,
+            color: '#FF0000'
+        })
+        .setOrigin(0.5);
+
+
+        // restart on game over
+        this.input.keyboard.once('keydown-SPACE', () => {
+            this.scene.start('playGame');
+        })
+
     }
-        
+    
       
 }
