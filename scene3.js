@@ -5,7 +5,6 @@ class Scene3 extends Phaser.Scene {
 
   create() {   
         //background
-        //TODO: get weather api background
        this.add.image(240, 320, 'background')
         .setScrollFactor(0,0);
 
